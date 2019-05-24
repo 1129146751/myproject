@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+
+    <!--扫描包 base-package表示里面所有的包 包括子包中加有@controller注解的类 加入到springmvc容器中
+                @Contoller不会把该类交给spring管理 创建对象-->
+    <context:component-scan base-package="com.newtouch.controller">
+    </context:component-scan>
+    <task:scheduler id="scheduler" pool-size="10"/>
+    <task:annotation-driven executor="scheduler" proxy-target-class="true"/>
+    <!--设置视图解析器 视图解析器的作用就是解析controller返回的modelandview 生成view对象
+        view对象 就是对数据的封装（request）和转发（getRequestDispatcher）
+        底层原理跟web是一样的  request.setAttribute对数据的封装
+                       request.getRequestDispatcher（地址).forwoad()对数据的请求转发
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+        <property name="order" value="1"/>
+    </bean>
+    <bean id="htmlviewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="com.newtouch.controller.HtmlResourceView"/><!-- 改成你自己的第一步新建的解析类路径 -->
+        <property name="order" value="0"/>
+        <!-- 前缀 -->
+        <property name="prefix" value="/WEB-INF/html/"/>
+        <property name="suffix" value=".html"/>
+    </bean>
+
+    <!--设置文件的上传下载-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <property name="maxUploadSize" value="102400000"></property>
+    </bean>
+    <!--两个标准配置  -->
+    <!-- 将springmvc不能处理的请求交给tomcat -->
+    <mvc:default-servlet-handler/>
+    <!--<mvc:resources mapping="/css/**" location="static/css/" cache-period="2592000"/>
+    <mvc:resources mapping="/img/**" location="static/error/" cache-period="2592000"/>
+    <mvc:resources mapping="/js/**" location="static/js/" cache-period="2592000"/>
+    <mvc:resources mapping="/js/**" location="static/fonts/" cache-period="2592000"/>-->
+    <!-- 能支持springmvc更高级的一些功能，JSR303校验，快捷的ajax...映射动态请求 -->
+    <mvc:view-controller path="/zhuye" view-name="index"/>
+    <mvc:annotation-driven/>
+    <mvc:interceptors>
+        <bean class=""/>
+    </mvc:interceptors>
+</beans>

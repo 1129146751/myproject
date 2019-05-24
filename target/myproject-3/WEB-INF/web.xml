@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+
+
+
+   <!-- 配置spring容器-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:applicationContext.xml,classpath:spring-shiro.xml</param-value>
+
+    </context-param>
+   <!-- 配置spring监听 是创建spring容器的入口 由他来创建spring容器  从日志里面可以看到
+   对applicationContext.xml
+   -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!--配置spring核心控制器 拦截所有的请求
+     1：在配置中添加初始化值(init-param)  配置springmvc的地址
+     2：load-on-startup 表示是否 服务器启动时 就创建springmvc容器
+     意思是在tomcate启动的时候 创建springmvc容器-->
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:springmvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <!--中文乱码配置 一定要放在所有的过滤器前面-->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--REST风格接口开发的过滤器，1.实用于post请求，2.数据里面需要key为_method,值为自己定义的请求方式DELETE PUT等
+     当使用在页面跳转  modelAndView时  会出错
+
+    -->
+    <filter>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HiddenHttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>validateFilter</filter-name>
+        <filter-class>com.newtouch.util.aop.GetContent</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>validateFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/static/error/404.jsp</location> <!--固定写法/默认到项目名-->
+    </error-page>
+    <error-page>
+        <error-code>302</error-code>
+        <location>/static/error/404.jsp</location>
+    </error-page>
+    <!-- 如果同一个bean被定义两次，后面一个优先 -->
+    <!-- classpath*与classpath的区别:前者遍历所有的classpath加载所有符合条件的资源(效率较差)，后者只会去找第一个符合条件的资源(避免重名) -->
+    <!--<context-param>
+        <description></description>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring-mybatis.xml,
+
+        </param-value>
+    </context-param>-->
+
+    <!-- shiro过滤器，
+        DelegatingFilterProxy代理会自动的到IOC容器找名字为shiroFilter的bean;
+        如果要修改bean的名字，可以设置targetBeanName的值，要注意的是必须与ShiroFilterFactoryBean的id值保持一致
+     -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
+        

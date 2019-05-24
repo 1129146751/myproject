@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--数据库里面的字段是以下划线隔开的 但是java里面的字段的命名是小驼峰-->
+    <!--<settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>-->
+    <!--给实体类区别名  在xml中使用时  只需要使用类名就行了-->
+    <typeAliases>
+        <package name="com.newtouch.model"/>
+    </typeAliases>
+
+</configuration>
+
