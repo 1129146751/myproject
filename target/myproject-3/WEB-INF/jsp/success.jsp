@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-        <p>成功的页面</p>
+<p>成功的页面</p>
 <%=request.getAttribute("data")%>
 </body>
 </html>

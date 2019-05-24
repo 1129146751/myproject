@@ -18,35 +18,35 @@
 
 </head>
 <body>
-        <p>这是一个主页</p>
-        <a href="user/userLogin">get方法 </a>
-    <form action="user/userLogin3" method="post">
-        <input type="hidden" name="_method" value="put">
-        <input type="submit">
-    </form>
-        <form method="post" action="user/userLogin3">
-            <input type="hidden" name="_method" value="PUT"/>
-            <input type="submit" name="PUT_REST"/>
-        </form>
+<p>这是一个主页</p>
+<a href="user/userLogin">get方法 </a>
+<form action="user/userLogin3" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="submit">
+</form>
+<form method="post" action="user/userLogin3">
+    <input type="hidden" name="_method" value="PUT"/>
+    <input type="submit" name="PUT_REST"/>
+</form>
 <span onclick="gg()">gg</span>
-        <form method="post" action="upFileMethod" enctype="multipart/form-data">
-            备注：<input type="text" name="fileName">
-            <input type="file" name="uploadeFiles">
-            <input type="submit">
-        </form>
+<form method="post" action="upFileMethod" enctype="multipart/form-data">
+    备注：<input type="text" name="fileName">
+    <input type="file" name="uploadeFiles">
+    <input type="submit">
+</form>
 <a href="laodFile">下载</a>
 
 
-        <p>---------------excel文件上传</p>
-        <form method="post" action="ecxelUpload" enctype="multipart/form-data">
-            备注：<input type="text" name="fileName">
-            <input type="file" name="file">
-            <input type="submit">
-        </form>
+<p>---------------excel文件上传</p>
+<form method="post" action="ecxelUpload" enctype="multipart/form-data">
+    备注：<input type="text" name="fileName">
+    <input type="file" name="file">
+    <input type="submit">
+</form>
 
-      <a  href="${pageContext.request.contextPath}/ecxelDownload2">下载poi</a>
-        <a  href="${pageContext.request.contextPath}/ecxelDownload">下载easy</a>
-        <p  onclick="ecxelDownload()">打开静态页面</p>
-        <button class="btn btn-success">按钮</button>
+<a href="${pageContext.request.contextPath}/ecxelDownload2">下载poi</a>
+<a href="${pageContext.request.contextPath}/ecxelDownload">下载easy</a>
+<p onclick="ecxelDownload()">打开静态页面</p>
+<button class="btn btn-success">按钮</button>
 </body>
 </html>

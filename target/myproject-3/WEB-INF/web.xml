@@ -5,17 +5,15 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 
-
-
-   <!-- 配置spring容器-->
+    <!-- 配置spring容器-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:applicationContext.xml,classpath:spring-shiro.xml</param-value>
 
     </context-param>
-   <!-- 配置spring监听 是创建spring容器的入口 由他来创建spring容器  从日志里面可以看到
-   对applicationContext.xml
-   -->
+    <!-- 配置spring监听 是创建spring容器的入口 由他来创建spring容器  从日志里面可以看到
+    对applicationContext.xml
+    -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
