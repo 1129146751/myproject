@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>这是一个登陆页面(来自2)2222</title>
+    <title>这是一个登陆页面(来自2)</title>
     <link rel="stylesheet" href="static/css/style.css">
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <script src="static/js/jquery-3.4.1.js"></script>
