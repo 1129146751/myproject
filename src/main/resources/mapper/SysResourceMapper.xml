@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.mapperDao.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.newtouch.model.SysResource" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="resource_id" property="resourceId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="resource_url" property="resourceUrl" jdbcType="VARCHAR" />
+    <result column="resource_title" property="resourceTitle" jdbcType="VARCHAR" />
+      <result column="user_longin_name" property="longinName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    resource_id, parent_id, resource_name, resource_url, resource_title
+  </sql>
+
+    <select id="getMenu" parameterType="string" resultType="map">
+    SELECT
+	f.user_longin_name longinName,
+	d.*
+FROM
+	user_role a
+	LEFT JOIN sys_user f ON f.user_id = a.user_id
+	LEFT JOIN sys_role b ON a.role_id = b.role_id
+	LEFT JOIN role_resource c ON b.role_id = c.role_id
+	LEFT JOIN sys_resource d ON c.resource_id = d.resource_id
+WHERE
+	f.user_longin_name =#{username}
+
+    </select>
+    <select id="getMenu2" parameterType="string" resultMap="BaseResultMap">
+    SELECT
+	f.user_longin_name,
+	d.*
+FROM
+	user_role a
+	LEFT JOIN sys_user f ON f.user_id = a.user_id
+	LEFT JOIN sys_role b ON a.role_id = b.role_id
+	LEFT JOIN role_resource c ON b.role_id = c.role_id
+	LEFT JOIN sys_resource d ON c.resource_id = d.resource_id
+WHERE
+	f.user_longin_name =#{username}
+
+    </select>
+</mapper>

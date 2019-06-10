@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newtouch.mapperDao.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="Employee">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="d_id" jdbcType="INTEGER" property="dId" />
+      <result column="state" jdbcType="INTEGER" property="state" />
+  </resultMap>
+<update id="updateEmpoly" parameterType="list">
+    update employee set state=0 where 1=1
+    <foreach collection="list" item="var" open="and emp_id in(" separator="," close=")">
+        #{var}
+    </foreach>
+</update>
+
+    <!--parameterType 可以是实体类名 或者是list-->
+    <update id="updateEmpolyByObject" parameterType="Employee">
+    <!--<selectKey keyProperty="empId" order="BEFORE" resultType="int">
+        select emp_id from  employee
+    </selectKey>-->
+    update employee set state=0 where 1=1
+    <foreach collection="list" item="var" open="and emp_id in (" separator="," close=")">
+        #{var.empId}
+    </foreach>
+</update>
+    <!--mapper代理层 参数添加@Param取别名后  xml中不需要paramterType
+         Parameter 'list' not found. Available parameters are [listw, param1]
+         别名一定要是xml 中collectiond的值相同
+                         -->
+    <update id="updateEmpolyByObject2" useGeneratedKeys="true" keyProperty="dId">
+        <!--<selectKey keyProperty="empId" order="BEFORE" resultType="int">
+            select emp_id from  employee
+        </selectKey>-->
+        update employee set state=0 where 1=1
+        <foreach collection="list" item="var" open="and emp_id in (" separator="," close=")">
+            #{var.empId}
+        </foreach>
+    </update>
+    <!--selectKey 没有添加注解的方式 可以获取返回的id-->
+    <insert id="inserByperson" parameterType="Employee">
+      <selectKey resultType="int" order="AFTER" keyProperty="empId">
+          select LAST_INSERT_ID()
+      </selectKey>
+        insert into employee(emp_name) value(#{empName})
+    </insert>
+    <!--selectKey 添加注解的方式 不可以获取返回的id -->
+    <insert id="inserBypersonByParam">
+        <selectKey resultType="int" order="AFTER" keyProperty="empId">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into employee(emp_name) value(#{e.empName})
+    </insert>
+    <!--selectKey 添加注解的方式 keyProperty="e.empId" 可以获取返回的id  指明别名-->
+    <insert id="inserBypersonByParamByid">
+        <selectKey resultType="int" order="AFTER" keyProperty="e.empId">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into employee(emp_name) value(#{e.empName})
+    </insert>
+
+
+    <!--批量增加 通过注解-->
+    <insert  id="inserBypersonBatch" keyProperty="empId" useGeneratedKeys="true">
+         insert into employee(emp_name) values
+         <foreach collection="list" item="var" open=" (" separator="),(" close=")">
+             #{var.empName}
+         </foreach>
+    </insert>
+</mapper>
