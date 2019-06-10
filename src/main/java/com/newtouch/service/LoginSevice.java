@@ -14,4 +14,6 @@ public interface LoginSevice {
     Object userLogin6();
 
     Object testMethodExcelOutport(String name, String vaildateCode);
+
+    Object userAdmin();
 }

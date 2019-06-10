@@ -1,4 +1,36 @@
 $(document).ready(function () {
+    debugger
+    /*$.ajax({
+        async: false,    //表示请求是否异步处理
+        type: "get",    //请求类型
+        url: "menu/getMenu",//请求的 URL地址
+        dataType: "json",//返回的数据类型
+        success: function (data) {
+           console.log(data);
+           if(data.code==200){
+               var html="";
+               var sechtml="";
+               for(var i=0;i<data.resultData.length;i++){
+                   if(data.resultData[i].resourceUrl==null||data.resultData[i].resourceUrl==''){
+                        for(var j=0;j<data.resultData[i].childDate.length;j++){
+                            sechtml+= "<li>"+
+                            "<a href='+data.resultData[i].childDate.resourceUrl+' target='mainFrame'>" +data.resultData[i].resourceName+"</a>"+
+                                "</li>";
+                        }
+
+                   }
+                   html+="<li role='presentation'>"+
+                       "<a href="+data.resultData[i].resourceUrl+" target='mainFrame'>"+data.resultData[i].resourceName+"</a>"+
+                       "</li>";
+
+               }
+               $("#navId").prepend(html);
+           }
+        },
+        error: function (data) {
+            alert(data.result);
+        }
+    })*/
     // alert();
     // debugger
     $("#imgVerify").attr("src", "user/getVerify?" + Math.random());

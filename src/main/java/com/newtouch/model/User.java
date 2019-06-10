@@ -41,8 +41,7 @@ public class User {
         this.note = note == null ? null : note.trim();
     }
 
-    @Override
-    public String toString() {
+    public String toString111() {
         return "User{" +
                 "uId=" + uId +
                 ", uName='" + uName + '\'' +

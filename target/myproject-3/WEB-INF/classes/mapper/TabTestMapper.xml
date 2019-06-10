@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.newtouch.mapperDao.TabTestMapper" >
-  <resultMap id="BaseResultMap" type="com.newtouch.model.TabTest" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="t_name" property="tName" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    <!--
-      WARNING - @mbggenerated
-    -->
-    id, t_name
-  </sql>
+<mapper namespace="com.newtouch.mapperDao.TabTestMapper">
+    <resultMap id="BaseResultMap" type="com.newtouch.model.TabTest">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="t_name" property="tName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        id, t_name
+    </sql>
 </mapper>

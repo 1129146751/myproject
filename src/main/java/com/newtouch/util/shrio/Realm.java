@@ -46,6 +46,17 @@ public class Realm extends AuthorizingRealm {
     private SysUser user;
     private Logger logger = LoggerFactory.getLogger(Realm.class);
 
+    public static void main(String[] args) {
+        String hashAlgorithmName = "MD5";
+        Object credentials = "e10adc3949ba59abbe56e057f20f883e";
+        Object salt = ByteSource.Util.bytes("user");
+        Integer hashIterations = null;
+
+        //Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+        Object result = new SimpleHash(hashAlgorithmName, credentials, salt);
+        System.out.println(result);
+    }
+
     /**
      * 授权，在配有缓存的情况下，只加载一次。
      */
@@ -53,7 +64,7 @@ public class Realm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principal) {
         //当前登录用户，账号
         String longinCode = principal.toString();
-        System.out.println("当前登录用户:" + longinCode);
+        System.out.println("当前登录用户doGetAuthorizationInfo:" + principal);
         //获取角色信息
         Example example = new Example(SysUser.class);
         Example.Criteria criteria = example.createCriteria();
@@ -62,12 +73,15 @@ public class Realm extends AuthorizingRealm {
         Set<String> roles = new HashSet<String>();
         if (userList.size() > 0) {
             for (SysUser u : userList) {
-                roles.add(String.valueOf(u.getUserLonginName()));
+                roles.add(String.valueOf(u.getUserSysName()));
             }
         } else {
             logger.info("当前用户没有角色！");
         }
+        /* SysUser sysuser2=(SysUser)principal;*/
+        //roles.add("admin");
         SimpleAuthorizationInfo info = null;
+        logger.info("用户的角色！" + roles.toString());
         info = new SimpleAuthorizationInfo(roles);
         return info;
     }
@@ -103,17 +117,6 @@ public class Realm extends AuthorizingRealm {
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(principal, credentials, byteSalt, realmName);
         SimpleAuthenticationInfo info2 = new SimpleAuthenticationInfo(principal, credentials, realmName);
         //5. 返回给调用login(token)方法
-        return info;
-    }
-
-    public static void main(String[] args) {
-        String hashAlgorithmName = "MD5";
-        Object credentials = "123456";
-        Object salt = ByteSource.Util.bytes("user");
-        Integer hashIterations = null;
-
-        //Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
-        Object result = new SimpleHash(hashAlgorithmName, credentials, salt);
-        System.out.println(result);
+        return info2;
     }
 }

@@ -21,7 +21,7 @@ public class HtmlResourceView extends InternalResourceView {
     @Override
     public boolean checkResource(Locale locale) {
         File file = new File(this.getServletContext().getRealPath("/") + getUrl());
-        System.out.println("跳转的是html页面");
+        System.out.println("跳转的是html页面" + file.exists());
         return file.exists();// 判断该页面是否存在
     }
 }

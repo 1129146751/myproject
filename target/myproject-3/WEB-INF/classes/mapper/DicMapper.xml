@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newtouch.mapperDao.DicMapper">
-  <resultMap id="BaseResultMap" type="com.newtouch.model.Dic">
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-  </resultMap>
-  <select id="getNname" resultType="string">
-    select  ${needColumn} from  ${tableName} where 1=1
-    <if test="dataType!=null and dataType!='' and dataTypeValue!=null and dataTypeValue!=''">
-      and  ${dataType}=#{dataTypeValue}
-    </if>
-    <if test="vaule!=null and vaule!=''">
-      and ${param}=#{vaule}
-    </if>
-  </select>
+    <resultMap id="BaseResultMap" type="com.newtouch.model.Dic">
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+    </resultMap>
+    <select id="getNname" resultType="string">
+        select ${needColumn} from ${tableName} where 1=1
+        <if test="dataType!=null and dataType!='' and dataTypeValue!=null and dataTypeValue!=''">
+            and ${dataType}=#{dataTypeValue}
+        </if>
+        <if test="vaule!=null and vaule!=''">
+            and ${param}=#{vaule}
+        </if>
+    </select>
 </mapper>

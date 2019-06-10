@@ -4,6 +4,7 @@ package com.newtouch.serviceImp;
 import com.alibaba.druid.pool.DruidDataSource;
 
 import com.newtouch.service.LoginSevice;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,13 @@ public class LoginSeviceImp implements LoginSevice {
     @Override
     public Object testMethodExcelOutport(String name, String vaildateCode) {
         System.out.println("aop只能运用在sevice层");
+        return null;
+    }
+
+
+    @RequiresRoles("admin")
+    public Object userAdmin() {
+        System.out.println("-----userAdmin");
         return null;
     }
 

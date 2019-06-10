@@ -10,46 +10,46 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
     <!--扫描包-->
     <context:component-scan base-package="com.newtouch">
-        <context:exclude-filter type="annotation"
-                                expression="org.springframework.stereotype.Controller"></context:exclude-filter>
-    </context:component-scan>
+        <!-- <context:exclude-filter type="annotation"
+                                 expression="org.springframework.stereotype.Controller"></context:exclude-filter>
+     --></context:component-scan>
     <!--配置数据源 链接池   这是将传统的jdbc封装 （装载驱动）可以直接调用dataSource的getConnction
       装载驱动
     -->
     <context:property-placeholder location="classpath:dbconfig.properties" ignore-unresolvable="true"/>
-   <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
-        <property name="driverClass" value="${jdbc.driverClass}"></property>
-        <property name="user" value="${jdbc.user}"></property>
-        <property name="password" value="${jdbc.password}"></property>
-    </bean>-->
+    <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+         <property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+         <property name="driverClass" value="${jdbc.driverClass}"></property>
+         <property name="user" value="${jdbc.user}"></property>
+         <property name="password" value="${jdbc.password}"></property>
+     </bean>-->
     <bean class="com.newtouch.util.MyExecptionResolver"></bean>
     <bean id="dataSource1" class="com.alibaba.druid.pool.DruidDataSource">
         <!--<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
         <property name="driverClass" value="${jdbc.driverClass}"></property>
         <property name="user" value="${jdbc.user}"></property>
         <property name="password" value="${jdbc.password}"></property>-->
-        <property name="driverClassName" value="${jdbc.driverClass}" />
-        <property name="url" value="${jdbc.jdbcUrl}" />
-        <property name="username" value="${jdbc.user}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.jdbcUrl}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
     <!--redis的配置-->
     <!-- 配置redis连接池 设置redis常量-->
     <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}" />
-        <property name="maxTotal" value="${redis.maxTotal}" />
-        <property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
-        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
     </bean>
     <!-- 配置JedisConnectionFacory -->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="hostName" value="${redis.host}" />
-        <property name="port" value="${redis.port}" />
-        <property name="password" value="${redis.password}" />
-        <property name="database" value="${redis.dataBase}" />
-        <property name="poolConfig" ref="poolConfig" />
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="database" value="${redis.dataBase}"/>
+        <property name="poolConfig" ref="poolConfig"/>
     </bean>
 
     <!-- 调用连接池工厂配置 -->
@@ -69,11 +69,11 @@
         <property name="defaultSerializer">
             <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
         </property>-->
-        <property name="keySerializer" >
-            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
-        <property name="valueSerializer" >
-            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer" />
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>
         </property>
         <property name="hashKeySerializer">
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
@@ -86,30 +86,30 @@
 
     <!-- 配置RedisCacheManager -->
     <bean id="redisCacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
-        <constructor-arg name="redisOperations" ref="redisTemplate" />
-        <property name="defaultExpiration" value="3000" />
+        <constructor-arg name="redisOperations" ref="redisTemplate"/>
+        <property name="defaultExpiration" value="3000"/>
     </bean>
     <!-- 配置RedisCacheConfig -->
     <bean id="redisCacheConfig" class="com.newtouch.util.RedisCacheConfig">
-        <constructor-arg ref="jedisConnectionFactory" />
+        <constructor-arg ref="jedisConnectionFactory"/>
 
-        <constructor-arg ref="redisCacheManager" />
-        <constructor-arg ref="redisTemplate" />
+        <constructor-arg ref="redisCacheManager"/>
+        <constructor-arg ref="redisTemplate"/>
     </bean>
     <!--自定义redis工具类,在需要缓存的地方注入此类  -->
     <bean id="redisUtil" class="com.newtouch.util.RedisUtil">
-        <property name="redisTemplate" ref="redisTemplate" />
+        <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
-  <!--  &lt;!&ndash; 配置RedisCacheConfig &ndash;&gt;
-    <bean id="redisCacheConfig" class="com.newtouch.util.RedisCacheConfig">
-        <constructor-arg ref="connectionFactory" />
-        <constructor-arg ref="redisTemplate" />
-        <constructor-arg ref="redisCacheManager" />
-    </bean>-->
+    <!--  &lt;!&ndash; 配置RedisCacheConfig &ndash;&gt;
+      <bean id="redisCacheConfig" class="com.newtouch.util.RedisCacheConfig">
+          <constructor-arg ref="connectionFactory" />
+          <constructor-arg ref="redisTemplate" />
+          <constructor-arg ref="redisCacheManager" />
+      </bean>-->
     <!--使用spring原始 自带的jdbcTel-->
-   <!-- <bean id="JdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>-->
+    <!-- <bean id="JdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+         <property name="dataSource" ref="dataSource"/>
+     </bean>-->
     <!--mybatis的配置-->
     <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--将连接池的数据交给mybatis管理-->
@@ -130,12 +130,13 @@
     </bean>
 
     <!--配置事务管理器-->
-    <bean id="transactionManager"  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource1"></property>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--面向切面编程 proxy-tatget-class默认为false 使用jdk的动态代理  TRUE为cglib-->
-    <aop:aspectj-autoproxy proxy-target-class="false"/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="false"/>-->
     <bean class="com.newtouch.util.ValidateCode.RandomValidateCode"></bean>
     <bean class="com.newtouch.util.aop.TelphoneVaildata"></bean>
+    <bean class="com.newtouch.util.reflect.SpringReflectUtil"></bean>
 </beans>

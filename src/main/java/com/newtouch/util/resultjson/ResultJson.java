@@ -10,6 +10,7 @@ public class ResultJson {
     private String msg;
     private String code;
     private Object resultData;
+    private String Export;
 
 
     public static ResultJson fail() {
@@ -33,7 +34,7 @@ public class ResultJson {
     }
 
     public static ResultJson success(Object data, String msg) {
-        return new ResultJson(CodeEnum.FAIL, data, msg);
+        return new ResultJson(CodeEnum.SUCCESS, data, msg);
     }
 
     public ResultJson(CodeEnum codeEnum, Object data, String msg) {
@@ -94,5 +95,13 @@ public class ResultJson {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getExport() {
+        return Export;
+    }
+
+    public void setExport(String export) {
+        Export = export;
     }
 }

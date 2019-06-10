@@ -47,5 +47,8 @@
 <a href="ecxelDownload">下载easy</a>
 <p onclick="ecxelDownload()">打开静态页面</p>
 <button class="btn btn-success">按钮</button>
+<br>
+<p>测试浏览器和页面访问</p>
+<a href="user/browserAndPage">测试浏览器和页面访问</a>
 </body>
 </html>

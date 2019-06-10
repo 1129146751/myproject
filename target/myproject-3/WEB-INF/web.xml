@@ -51,28 +51,32 @@
      当使用在页面跳转  modelAndView时  会出错
 
     -->
-    <filter>
-        <filter-name>HiddenHttpMethodFilter</filter-name>
-        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>HiddenHttpMethodFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter>
-        <filter-name>validateFilter</filter-name>
-        <filter-class>com.newtouch.util.aop.GetContent</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>validateFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <!-- <filter>
+         <filter-name>HiddenHttpMethodFilter</filter-name>
+         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+     </filter>
+     <filter-mapping>
+         <filter-name>HiddenHttpMethodFilter</filter-name>
+         <url-pattern>/*</url-pattern>
+     </filter-mapping>-->
+    <!-- <filter>
+         <filter-name>validateFilter</filter-name>
+         <filter-class>com.newtouch.util.aop.GetContent</filter-class>
+     </filter>
+     <filter-mapping>
+         <filter-name>validateFilter</filter-name>
+         <url-pattern>/*</url-pattern>
+     </filter-mapping>-->
     <error-page>
         <error-code>404</error-code>
         <location>/static/error/404.jsp</location> <!--固定写法/默认到项目名-->
     </error-page>
     <error-page>
         <error-code>302</error-code>
+        <location>/static/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
         <location>/static/error/404.jsp</location>
     </error-page>
     <!-- 如果同一个bean被定义两次，后面一个优先 -->

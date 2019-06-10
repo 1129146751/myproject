@@ -27,8 +27,8 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.95.195.210:3306/test" userId="root"
-                        password="root123@@@"/>
+                        connectionURL="jdbc:mysql://localhost/test" userId="root"
+                        password="root"/>
 
 
         <javaModelGenerator targetPackage="com.newtouch.model" targetProject="src/main/java">
@@ -42,7 +42,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="sys_user" domainObjectName="SysUser"
+        <table tableName="tab_teacher" domainObjectName="TabTeacher"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

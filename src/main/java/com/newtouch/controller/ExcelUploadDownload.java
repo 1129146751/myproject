@@ -89,6 +89,9 @@ public class ExcelUploadDownload {
             List<TestEntity> list = new ArrayList<TestEntity>();
             //TestEntity为模板下载的实体
             list.add(new TestEntity("sss", "XXX"));
+            list.add(new TestEntity("sss22", "XXX"));
+            list.add(new TestEntity("sssEE", "XXX"));
+            list.add(new TestEntity("sss33", "XXX"));
             //为实体赋值
             workbook = ExcelExportUtil.exportExcel(new ExportParams(), TestEntity.class, list);
 
@@ -114,7 +117,7 @@ class TestEntity {
     private String name;
     @Excel(name = "地址", orderNum = "1")
     private String add;
-
+    private String jj;
     public String getName() {
         return name;
     }
@@ -134,6 +137,14 @@ class TestEntity {
     public TestEntity(String name, String add) {
         this.name = name;
         this.add = add;
+    }
+
+    public String getJj() {
+        return jj;
+    }
+
+    public void setJj(String jj) {
+        this.jj = jj;
     }
 }
 

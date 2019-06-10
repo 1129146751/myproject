@@ -5,10 +5,11 @@
 <generatorConfiguration>
 
     <!--&lt;!&ndash; 引入外部文件 &ndash;&gt;-->
-   <!-- <properties resource="cfg.properties"/>-->
+    <!-- <properties resource="cfg.properties"/>-->
 
     <!--&lt;!&ndash; mysql 驱动 &ndash;&gt;-->
-    <classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <classPathEntry
+            location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
 
     <context id="my" targetRuntime="MyBatis3">
 
@@ -20,14 +21,14 @@
             <property name="mappers" value="${mapper.Mapper}"/>
         </plugin>
 
-        <commentGenerator >
+        <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://47.95.195.210:3306/test" userId="root"
-                        password="root123@@@"/>
+                        connectionURL="jdbc:mysql://localhost/test" userId="root"
+                        password="root"/>
 
 
         <javaModelGenerator targetPackage="com.newtouch.model" targetProject="src/main/java">
@@ -41,7 +42,7 @@
         </javaClientGenerator>
 
 
-        <table tableName="sys_user" domainObjectName="SysUser"
+        <table tableName="tab_teacher" domainObjectName="TabTeacher"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
