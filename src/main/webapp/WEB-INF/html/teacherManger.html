@@ -23,6 +23,7 @@
                     课程名：<input type="text" name="teacherCourse" id="teacherCourse">
                 性别：<!--<input type="text" name="sex" id="sex">-->
                 <select id="teacherSex">
+                    <option value="">-性别选择-</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
                 </select>
@@ -38,10 +39,16 @@
             <!--<button class="btn   btn-danger" id="emp_delete_all_btn">删除</button>-->
 
             <a class="btn btn-danger" href="../teacher/dowloadFile">导入模板下载</a>
-            <form method="post" action="../teacher/importExcel" enctype="multipart/form-data">
+            <!--<form method="post" action="../teacher/importExcel" enctype="multipart/form-data">
                 备注：<input type="text" name="fileName">
                 <input type="file" name="file">
                 <input type="submit">
+            </form>-->
+            <form id="inportFile" enctype="multipart/form-data">
+                <!--备注：<input type="text" name="fileName">-->
+                <input type="file" name="file">
+                <!--<input type="submit">-->
+                <button class="btn btn-danger" id="inportFileButton">导入</button>
             </form>
         </div>
     </div>
@@ -514,6 +521,26 @@
                    }
                });*/
         });
+        $("#inportFileButton").click(function(){
+            // event.preventDefault();
+            debugger;
+            var fileData=new FormData($("#inportFile")[0]);
+            if($("#inportFile")[0]==null||$("#inportFile")[0]==''){
+                alert("请上传文件");
+                return
+            }
+            $.ajax({
+                url:"../teacher/importExcel",
+                type:"post",
+                data:fileData,
+                cache : false,
+                processData : false,
+                contentType : false,
+                success:function(result){
+                    to_page(1);
+                }
+            });
+        })
     </script>
 
 </div>

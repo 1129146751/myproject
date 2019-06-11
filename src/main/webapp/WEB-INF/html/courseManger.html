@@ -22,6 +22,7 @@
                 姓名：<input type="text" name="username" id="username">
                 性别：<!--<input type="text" name="sex" id="sex">-->
                 <select id="sex">
+                    <option value="" selected>-性别选择-</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
                 </select>
@@ -36,10 +37,17 @@
             <!--<button class="btn btn-danger" id="emp_delete_all_btn">删除</button>-->
 
             <a class="btn btn-danger" href="../user/dowloadFile">导入模板下载</a>
-            <form method="post" action="importExcel" enctype="multipart/form-data">
+            <!--<form method="post" action="importExcel" enctype="multipart/form-data">
                 备注：<input type="text" name="fileName">
                 <input type="file" name="file">
                 <input type="submit">
+            </form>-->
+
+            <form id="inportFile" enctype="multipart/form-data">
+                <!--备注：<input type="text" name="fileName">-->
+                <input type="file" name="file">
+                <!--<input type="submit">-->
+                <button class="btn btn-danger" id="inportFileButton">导入</button>
             </form>
         </div>
     </div>
@@ -57,7 +65,7 @@
                     <th>姓名</th>
                     <th>性别</th>
                     <th>email</th>
-                    <th>部门</th>
+                    <th>课程</th>
                     <!--<th>操作</th>-->
                 </tr>
                 </thead>
@@ -120,22 +128,22 @@
                 var empNameTd = $("<td></td>").append(item.empName);
                 var genderTd = $("<td></td>").append(item.gender=='1'?"男":"女");
                 var emailTd = $("<td></td>").append(item.email);
-                var deptNameTd = $("<td></td>").append("开发部");
+                var deptNameTd = $("<td></td>").append("数学");
                 /**
                  <button class="">
                  <span class="" aria-hidden="true"></span>
                  编辑
                  </button>
                  */
-                var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
+               /* var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
                     .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
                 //为编辑按钮添加一个自定义的属性，来表示当前员工id
                 editBtn.attr("edit-id",item.empId);
                 var delBtn =  $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                     .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
                 //为删除按钮添加一个自定义的属性来表示当前删除的员工id
-                delBtn.attr("del-id",item.empId);
-                var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
+                delBtn.attr("del-id",item.empId);*/
+                // var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
                 //var delBtn =
                 //append方法执行完成以后还是返回原来的元素
                 $("<tr></tr>").append(checkBoxTd)
@@ -510,6 +518,22 @@
                     }
                 });*/
         });
+        $("#inportFileButton").click(function(){
+            // event.preventDefault();
+            debugger;
+            var fileData=new FormData($("#inportFile")[0]);
+            $.ajax({
+                url:"importExcel",
+                type:"post",
+                data:fileData,
+                cache : false,
+                processData : false,
+                contentType : false,
+                success:function(result){
+                    to_page(1);
+                }
+            });
+        })
     </script>
 
 </div>
