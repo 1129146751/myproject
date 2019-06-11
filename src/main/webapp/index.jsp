@@ -46,6 +46,5 @@
     <button type="button" id="submit" class="btn btn-default">Submit</button>
 </form>
 
-<a href="WEB-INF/jsp/success.jsp">访问webinf下面的页面</a>
 </body>
 </html>
