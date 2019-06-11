@@ -1,2 +1,2 @@
 # myproject
-项目环境：ssm+shrio+redis
+项目环境：ssm+shrio+redis+mysql
