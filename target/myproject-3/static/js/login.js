@@ -1,38 +1,18 @@
 $(document).ready(function () {
     debugger
-    /*$.ajax({
-        async: false,    //表示请求是否异步处理
-        type: "get",    //请求类型
-        url: "menu/getMenu",//请求的 URL地址
-        dataType: "json",//返回的数据类型
-        success: function (data) {
-           console.log(data);
-           if(data.code==200){
-               var html="";
-               var sechtml="";
-               for(var i=0;i<data.resultData.length;i++){
-                   if(data.resultData[i].resourceUrl==null||data.resultData[i].resourceUrl==''){
-                        for(var j=0;j<data.resultData[i].childDate.length;j++){
-                            sechtml+= "<li>"+
-                            "<a href='+data.resultData[i].childDate.resourceUrl+' target='mainFrame'>" +data.resultData[i].resourceName+"</a>"+
-                                "</li>";
-                        }
+    //cookie数据保存格式是key=value;key=value;形式，loginInfo为保存在cookie中的key值，具体看controller代码
+    var str = getCookie("loginInfo");
+    str = str.substring(1,str.length-1);
+    var username = str.split("!")[0];
+    var password = str.split("!")[1];
+    //自动填充用户名和密码
+    $("#exampleInputEmail1").val(username);
+    $("#exampleInputPassword1").val(password);
+    // if(!(username==null||username=='')){
+        $("#rememberMe").attr('checked', 'true');
+    $("#rememberMe").val(1);
+    // }
 
-                   }
-                   html+="<li role='presentation'>"+
-                       "<a href="+data.resultData[i].resourceUrl+" target='mainFrame'>"+data.resultData[i].resourceName+"</a>"+
-                       "</li>";
-
-               }
-               $("#navId").prepend(html);
-           }
-        },
-        error: function (data) {
-            alert(data.result);
-        }
-    })*/
-    // alert();
-    // debugger
     $("#imgVerify").attr("src", "user/getVerify?" + Math.random());
     $("#imgVerify2").click(function () {
         $("#imgVerify").attr("src", "user/getVerify?" + Math.random());
@@ -64,6 +44,53 @@ $(document).ready(function () {
             }
         })
     }
+    $("#rememberMe").click(function(){
+        var remFlag = $("input:checkbox").is(':checked');
+        if(remFlag){
+            //cookie存用户名和密码,回显的是真实的用户名和密码,存在安全问题.
+            var conFlag = confirm("记录密码功能不宜在公共场所使用,以防密码泄露.您确定要使用此功能吗?");
+            if(conFlag){
+                //确认标志
+                $("#rememberMe").val("1");
+            }else{
+                $("input:checkbox").removeAttr('checked');
+                $("#rememberMe").val("0");
+            }
+        }else{
+            //如果没选中设置remFlag为""
+            $("#rememberMe").val("0");
+        }
+    })
+    function remember(){
+        debugger
+        var remFlag = $("input:checkbox").is(':checked');
+        if(remFlag){
+            //cookie存用户名和密码,回显的是真实的用户名和密码,存在安全问题.
+            var conFlag = confirm("记录密码功能不宜在公共场所使用,以防密码泄露.您确定要使用此功能吗?");
+            if(conFlag){
+                //确认标志
+                $("#rememberMe").val("1");
+            }else{
+                $("input:checkbox").removeAttr('checked');
+                $("#rememberMe").val("0");
+            }
+        }else{
+            //如果没选中设置remFlag为""
+            $("#rememberMe").val("0");
+        }
+    }
+    //获取cookie
+    function getCookie(cname) {
+        debugger
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length-1, c.length);
+        }
+        return "";
+    }
 
     $("#submit").click(function () {
         debugger
@@ -84,6 +111,7 @@ $(document).ready(function () {
                 userPassword: userPassword,
                 userLonginName: userLonginName,
                 userLonginName2: $("#exampleInputEmail1").val(),
+                rememberMe:$("#rememberMe").val(),
                 vaildata: vaildata
             },
 

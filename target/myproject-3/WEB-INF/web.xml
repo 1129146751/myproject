@@ -17,6 +17,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>com.newtouch.util.listener.SessionListener</listener-class>
+    </listener>
     <!--配置spring核心控制器 拦截所有的请求
      1：在配置中添加初始化值(init-param)  配置springmvc的地址
      2：load-on-startup 表示是否 服务器启动时 就创建springmvc容器

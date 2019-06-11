@@ -529,7 +529,9 @@
                 cache : false,
                 processData : false,
                 contentType : false,
+                sync:false,
                 success:function(result){
+                    console.log("result:"+result);
                     to_page(1);
                 }
             });

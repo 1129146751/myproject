@@ -32,7 +32,11 @@
         <input type="password" class="form-control" name="userPassword" id="exampleInputPassword1" placeholder="密码">
     </div>
     <div class="row cl">
+
+
+
         <div class="formControls col-xs-8 col-xs-offset-3">
+            <input type="checkbox" name="rememberMe" id="rememberMe"/>
             验证码:<input id="checks" class="input-text size-L" type="text" value="" style="width:150px;"/>
             <img id="imgVerify" src="" alt="点击更换验证码"/>
             <button type="button" id="imgVerify2" class="btn btn-default">看不清，换一张</button>

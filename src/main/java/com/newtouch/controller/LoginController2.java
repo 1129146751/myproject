@@ -279,8 +279,9 @@ public class LoginController2 {
      public ModelAndView enjoinZhuYe(HttpServletRequest request){
          ModelAndView mv=new ModelAndView();
                  mv.setViewName("index");
+         int  count=(int)request.getSession().getServletContext().getAttribute("count");
          //mv.addObject("username",request.getSession().getAttribute("username"));
-                 System.out.println("user/zhuyeuser/zhuyeuser/zhuyeuser/zhuyeuser/zhuye");
+                 System.out.println("user/zhuyeuser/zhuyeuser/zhuyeuser/zhuyeuser/zhuye"+count);
          return mv;
      }
     @PostMapping("/sfsklfs")

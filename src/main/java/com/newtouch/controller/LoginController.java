@@ -44,6 +44,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.*;
@@ -300,7 +302,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/userShiroLogin", method = RequestMethod.GET)
     @ResponseBody
-    public ResultJson userShiroLogin(HttpServletRequest request,
+    public ResultJson userShiroLogin(HttpServletRequest request,HttpServletResponse response,
                                      SysUser user, @RequestParam("vaildata") String vaildata) throws Exception {
         InetAddress inet = InetAddress.getLocalHost();
         log.info("主机地址" + inet);
@@ -334,9 +336,29 @@ public class LoginController {
             loginLog.setUserIp("" + i);
             loginLog.setTiime(new Date());
             loginLogMapper.insertSelective(loginLog);
+            //当前人数加1
+            ServletContext sc=request.getSession().getServletContext();
+            Object obj=sc.getAttribute("counts");
+            if(obj==null){
+                sc.setAttribute("counts",1);
+            }else{
+                sc.setAttribute("counts",(int)sc.getAttribute("counts")+1);
+            }
+            System.out.println("登陆数s" + sc.getAttribute("counts"));
+        }
+        if(Objects.equals("1",request.getParameter("rememberMe"))) {
+            String loginInfo = user.getUserLonginName() + "!" + user.getUserPassword();
+            Cookie userCookie = new Cookie("loginInfo", loginInfo);
+            userCookie.setMaxAge(1 * 24 * 60 * 60);
+            // 存活期为一天 1*24*60*60
+            userCookie.setPath("/");
+            response.addCookie(userCookie);
         }
         SecurityUtils.getSubject().getSession().setTimeout(600000);
         request.getSession().setAttribute("username", user.getUserLonginName());
+
+
+
         //mv.setViewName("success");
         return ResultJson.success();
 
@@ -513,7 +535,7 @@ public class LoginController {
 
     @RequestMapping("importExcel")
     @ResponseBody
-    public void importExcel(MultipartFile file) throws Exception {
+    public ResultJson importExcel(MultipartFile file) throws Exception {
         String filePath = "C:\\Users\\Administrator\\Desktop\\hhh.xls";
         //解析excel，
         ImportParams params = new ImportParams();
@@ -528,7 +550,7 @@ public class LoginController {
             f.setState(1);
             employeeMapper.insert(f);
         });
-
+        return  ResultJson.success();
         //TODO 保存数据库
     }
 
