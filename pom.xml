@@ -196,7 +196,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.83</version>
         </dependency>
         <!-- 此处引用是为了给下面的mapper插件下载依赖-->
         <!--<dependency>
